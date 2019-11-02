@@ -1,0 +1,2 @@
+class FileInfoInvalidParam(Exception):
+    pass

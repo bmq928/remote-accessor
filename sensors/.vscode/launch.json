@@ -1,0 +1,49 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // {
+    //   "name": "Python: Flask",
+    //   "type": "python",
+    //   "request": "launch",
+    //   "module": "flask",
+    //   "env": {
+    //     "FLASK_APP": "app.py",
+    //     "FLASK_ENV": "development",
+    //     "FLASK_DEBUG": "0"
+    //   },
+    //   "args": [
+    //     "run",
+    //     "-p 5001",
+    //     "--no-debugger",
+    //     "--no-reload"
+    //   ],
+    //   "jinja": true
+    // },
+    {
+      "name": "PyTest",
+      "type": "python",
+      "request": "launch",
+      "stopOnEntry": false,
+      "pythonPath": "${config:python.pythonPath}",
+      "module": "pytest",
+      "args": [
+        "--disable-warnings",
+        "-sv",
+        // "--no-cov",
+        "-k test_depth_param_should_limit_return_value"
+      ],
+      "cwd": "${workspaceRoot}",
+      "env": {},
+      "envFile": "${workspaceRoot}/.env",
+      "debugOptions": [
+        "WaitOnAbnormalExit",
+        "WaitOnNormalExit",
+        "RedirectOutput"
+      ]
+    }
+
+  ]
+}
