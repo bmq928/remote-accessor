@@ -1,0 +1,6 @@
+{
+  "port": 3001,
+  "production": false,
+  "logFolder": "../logs",
+  "moduleName": "agent"
+}

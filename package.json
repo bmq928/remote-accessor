@@ -1,0 +1,13 @@
+{
+  "name": "kiddy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/bmq928/kiddy.git",
+  "author": "bmq928 <bmq928@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react-loader-spinner": "^3.1.4",
+    "reactn": "^2.2.2"
+  }
+}

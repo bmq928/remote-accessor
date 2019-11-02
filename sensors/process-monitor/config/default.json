@@ -1,0 +1,5 @@
+{
+  "production": false,
+  "logFolder": "../../logs",
+  "moduleName": "sensors.process-monitor"
+}

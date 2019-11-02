@@ -1,0 +1,15 @@
+$color: #999;
+
+.FileRepresentation {
+  // margin-left: 260px;
+  padding: 30px 30px;
+
+  .item-selected {
+    // .FileItem:first-child {
+    //   background-color: $color;
+    // }
+    small {
+      background-color: $color;
+    }
+  }
+}

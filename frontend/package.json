@@ -1,0 +1,72 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bulma": "^0.7.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-file-icon": "^0.2.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.2.0",
+    "node-sass": "^4.12.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "airbnb",
+      "prettier"
+    ],
+    "rules": {
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      ],
+      "semi": [
+        "error",
+        "never"
+      ],
+      "jsx-a11y/no-static-element-interactions": "off",
+      "react/self-closing-comp": "off",
+      "react/jsx-closing-tag-location": "off",
+      "no-restricted-syntax": "off",
+      "import/no-cycle": "off"
+    }
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "resetMocks": true
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

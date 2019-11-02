@@ -1,0 +1,17 @@
+.FileItem{
+  .file-detail {
+    text-align: center;
+  }
+  & > img, & > svg {
+    display: block;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+  }
+  img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+  }
+}
