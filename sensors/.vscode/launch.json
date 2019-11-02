@@ -33,7 +33,7 @@
         "--disable-warnings",
         "-sv",
         // "--no-cov",
-        "-k test_depth_param_should_limit_return_value"
+        "-k test_process_monitor_should_have_enough_attr"
       ],
       "cwd": "${workspaceRoot}",
       "env": {},
