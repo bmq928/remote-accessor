@@ -1,4 +1,5 @@
 import logging
+import os
 
 from .FileInfoInvalidParam import FileInfoInvalidParam
 
@@ -7,16 +8,18 @@ __logger__ = logging.getLogger(__name__)
 
 
 class FileInfo:
-    def __init__(self, name, is_file, children=[]):
+    def __init__(self, name, is_file, path, children=[]):
         validated_args = self._validate_args({
             'name': name,
             'is_file': is_file,
-            'children': children
+            'children': children,
+            'path': path
         })
 
         self.name = validated_args.get('name')
         self.is_file = validated_args.get('is_file')
         self.children = children
+        self.path = path
 
     def __eq__(self, value):
         if not isinstance(value, FileInfo):
@@ -47,7 +50,8 @@ class FileInfo:
         return dict(
             name=node.name,
             is_file=node.is_file,
-            children=children_dict
+            children=children_dict,
+            path=node.path
         )
 
     @staticmethod
@@ -55,10 +59,14 @@ class FileInfo:
         children = args.get('children', [])
         is_file = args.get('is_file', True)
         name = args.get('name', '')
+        path = args.get('path', '')
 
         if not isinstance(name, str):
             raise FileInfoInvalidParam(
                 message='name must be an instance of string')
+        if not isinstance(path, str):
+            raise FileInfoInvalidParam(
+                message='path must be an instance of string')
         if not isinstance(is_file, bool):
             raise FileInfoInvalidParam(
                 message='is_file must be an instance of bool')

@@ -18,7 +18,8 @@ def _explore_at_lv(directory: str, lv: int, max_lv: int) -> FileInfo:
         return FileInfo(
             name=path.basename(directory),
             is_file=path.isfile(directory),
-            children=[]
+            children=[],
+            path=directory
         )
     children_names = os.listdir(directory)
     children_directories = [
@@ -36,7 +37,8 @@ def _explore_at_lv(directory: str, lv: int, max_lv: int) -> FileInfo:
     cur_file_info = FileInfo(
         name=path.basename(directory),
         is_file=path.isfile(directory),
-        children=not_none_chilren
+        children=not_none_chilren,
+        path=directory
     )
 
     return cur_file_info

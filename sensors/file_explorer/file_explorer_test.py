@@ -54,66 +54,79 @@ class TestFileExplorer(unittest.TestCase):
         expected = FileInfo(
             name=path.basename(ROOT_TEST_FOLDER),
             is_file=False,
+            path=ROOT_TEST_FOLDER,
             children=[
                 FileInfo(
                     name='folder1',
                     is_file=False,
+                    path=path.join(ROOT_TEST_FOLDER, 'folder1'),
                     children=[
                         FileInfo(
                             name='folder3',
                             is_file=False,
+                            path=path.join(ROOT_TEST_FOLDER, 'folder1', 'folder3'),
                             children=[
                                 FileInfo(
                                     name='g.txt',
                                     is_file=True,
-                                    children=[]
+                                    children=[],
+                                    path=path.join(ROOT_TEST_FOLDER, 'folder1', 'folder3', 'g.txt'),
                                 ),
                                 FileInfo(
                                     name='h.txt',
                                     is_file=True,
-                                    children=[]
+                                    children=[],
+                                    path=path.join(ROOT_TEST_FOLDER, 'folder1', 'folder3', 'h.txt'),
                                 ),
                                 FileInfo(
                                     name='j.txt',
                                     is_file=True,
-                                    children=[]
+                                    children=[],
+                                    path=path.join(ROOT_TEST_FOLDER, 'folder1', 'folder3', 'j.txt'),
                                 ),
                                 FileInfo(
                                     name='k.txt',
                                     is_file=True,
-                                    children=[]
+                                    children=[],
+                                    path=path.join(ROOT_TEST_FOLDER, 'folder1', 'folder3', 'k.txt'),
                                 ),
                             ]
                         ),
                         FileInfo(
                             name='a.txt',
                             is_file=True,
-                            children=[]
+                            children=[],
+                            path=path.join(ROOT_TEST_FOLDER, 'folder1', 'a.txt'),
                         ),
                         FileInfo(
                             name='b.txt',
                             is_file=True,
-                            children=[]
+                            children=[],
+                            path=path.join(ROOT_TEST_FOLDER, 'folder1', 'b.txt'),
                         ),
                         FileInfo(
                             name='c.txt',
                             is_file=True,
-                            children=[]
+                            children=[],
+                            path=path.join(ROOT_TEST_FOLDER, 'folder1', 'c.txt'),
                         ),
                     ]
                 ),
                 FileInfo(
                     name='folder2',
                     is_file=False,
+                    path=path.join(ROOT_TEST_FOLDER, 'folder2'),
                     children=[
                         FileInfo(
                             name='d.txt',
                             is_file=True,
-                            children=[]
+                            children=[],
+                            path=path.join(ROOT_TEST_FOLDER, 'folder2', 'd.txt'),
                         ),
                         FileInfo(
                             name='e.txt',
                             is_file=True,
+                            path=path.join(ROOT_TEST_FOLDER, 'folder2', 'e.txt'),
                             children=[]
                         ),
                     ]
@@ -128,16 +141,19 @@ class TestFileExplorer(unittest.TestCase):
         expected = FileInfo(
             name=path.basename(ROOT_TEST_FOLDER),
             is_file=False,
+            path=ROOT_TEST_FOLDER,
             children=[
                 FileInfo(
                     name='folder1',
                     is_file=False,
-                    children=[]
+                    children=[],
+                    path=path.join(ROOT_TEST_FOLDER, 'folder1')
                 ),
                 FileInfo(
                     name='folder2',
                     is_file=False,
-                    children=[]
+                    children=[],
+                    path=path.join(ROOT_TEST_FOLDER, 'folder2')
                 ),
             ]
         )
