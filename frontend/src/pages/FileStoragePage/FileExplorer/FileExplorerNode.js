@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 export default function FileExplorerNode({
-  rootIsFile,
+  isFile,
   rootName,
   files,
   folders,
@@ -43,7 +43,7 @@ export default function FileExplorerNode({
 
   function getItemBadge() {
     const numChild = files.length + folders.length
-    if (rootIsFile) return 'button switch center_docu'
+    if (isFile) return 'button switch center_docu'
 
     return numChild && showChild
       ? 'button switch roots_open'
@@ -52,7 +52,7 @@ export default function FileExplorerNode({
 
   function getItemIcon() {
     const numChild = files.length + folders.length
-    if (rootIsFile) return 'button ico_docu'
+    if (isFile) return 'button ico_docu'
 
     return numChild && showChild ? 'button ico_open' : 'button ico_close'
   }
@@ -60,7 +60,7 @@ export default function FileExplorerNode({
   return (
     <li>
       <span className={getItemBadge()} onClick={e => toggleShowChild()}></span>
-      <span className="link" onClick={e => nodeOnClick(path, rootIsFile, [...folders, ...files])}>
+      <span className="link" onClick={e => nodeOnClick(path, isFile, [...folders, ...files])}>
         <span className={getItemIcon()}></span>
         <span className="node_name">{rootName}</span>
       </span>
@@ -72,11 +72,26 @@ export default function FileExplorerNode({
   )
 }
 
+const NodePropType = {
+  isFile: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  
+}
+
+NodePropType.children = PropTypes.arrayOf(
+  PropTypes.shape(NodePropType).isRequired
+)
+
 FileExplorerNode.propTypes = {
-  rootIsFile: PropTypes.bool.isRequired,
-  rootName: PropTypes.string.isRequired,
-  files: PropTypes.array.isRequired,
-  folders: PropTypes.array.isRequired,
+  isFile: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  children: PropTypes.arrayOf(
+    PropTypes.shape({
+      isFile: PropTypes.bool.isRequired,
+      name: PropTypes.string.isRequired,
+
+    })
+  ).isRequired,
   nodeOnClick: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
 }

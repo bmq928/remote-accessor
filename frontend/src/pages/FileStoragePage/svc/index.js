@@ -1,9 +1,11 @@
-import { websocket, constants } from '../vendors'
+import axios from 'axios'
 
+import { constants } from '../vendors'
 
-const socket = websocket.connect(constants.AGENT_HOST)
-
-export function showFolderTree(folderPath, depth = 1) {
+export async function showFolderTree(folderPath, depth = 3) {
+  const url = `${constants.AGENT_HOST}/file/structure?directory=${folderPath}`
+  const resp = await axios.get(url)
+  return resp.data
   // return new Promise((resolve, reject) => {
   //   if (!socket) reject(new SocketConnectionError('socket is not connected'))
   //   if (!socket.connected)

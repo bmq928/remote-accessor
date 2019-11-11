@@ -1,3 +1,5 @@
 pytest==5.2.2
 pyscreenshot==0.5.1
 Pillow==6.2.1
+Flask-Cors==3.0.8
+Flask==1.1.1
