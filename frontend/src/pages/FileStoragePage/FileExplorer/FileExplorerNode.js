@@ -1,11 +1,12 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 export default function FileExplorerNode({
   isFile,
-  rootName,
-  files,
-  folders,
+  name,
+  children,
   nodeOnClick,
   path,
 }) {
@@ -16,11 +17,12 @@ export default function FileExplorerNode({
   }
 
   function getListFileComponent() {
-    const listFile = files
+    const listFile = children
       .filter(() => showChild)
+      .filter(f => f.isFile)
       .map((file, idx) => (
         <FileExplorerNode
-          key={'file' + idx.toString()}
+          key={`file-${idx.toString()}`}
           {...file}
           nodeOnClick={nodeOnClick}
         />
@@ -29,11 +31,12 @@ export default function FileExplorerNode({
   }
 
   function getListFolderComponent() {
-    const listFolder = folders
+    const listFolder = children
       .filter(() => showChild)
+      .filter(f => !f.isFile)
       .map((folder, i) => (
         <FileExplorerNode
-          key={'folder' + i.toString()}
+          key={`folder-${i.toString()}`}
           {...folder}
           nodeOnClick={nodeOnClick}
         />
@@ -42,7 +45,7 @@ export default function FileExplorerNode({
   }
 
   function getItemBadge() {
-    const numChild = files.length + folders.length
+    const numChild = children.length
     if (isFile) return 'button switch center_docu'
 
     return numChild && showChild
@@ -51,7 +54,7 @@ export default function FileExplorerNode({
   }
 
   function getItemIcon() {
-    const numChild = files.length + folders.length
+    const numChild = children.length
     if (isFile) return 'button ico_docu'
 
     return numChild && showChild ? 'button ico_open' : 'button ico_close'
@@ -59,10 +62,13 @@ export default function FileExplorerNode({
 
   return (
     <li>
-      <span className={getItemBadge()} onClick={e => toggleShowChild()}></span>
-      <span className="link" onClick={e => nodeOnClick(path, isFile, [...folders, ...files])}>
+      <span className={getItemBadge()} onClick={() => toggleShowChild()}></span>
+      <span
+        className="link"
+        onClick={() => nodeOnClick(path, isFile, children)}
+      >
         <span className={getItemIcon()}></span>
-        <span className="node_name">{rootName}</span>
+        <span className="node_name">{name}</span>
       </span>
       <ul className="line">
         {getListFolderComponent()}
@@ -72,26 +78,11 @@ export default function FileExplorerNode({
   )
 }
 
-const NodePropType = {
-  isFile: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
-  
-}
-
-NodePropType.children = PropTypes.arrayOf(
-  PropTypes.shape(NodePropType).isRequired
-)
-
 FileExplorerNode.propTypes = {
   isFile: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  children: PropTypes.arrayOf(
-    PropTypes.shape({
-      isFile: PropTypes.bool.isRequired,
-      name: PropTypes.string.isRequired,
-
-    })
-  ).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  children: PropTypes.array.isRequired,
   nodeOnClick: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
 }

@@ -9,9 +9,9 @@ export default function FileRepresentation() {
   const [itemSelected, setItemSelected] = useState([])
 
   const NUM_ITEM_PER_ROW = 6
-  const fileOrFolders = [ ...rootNode.files,...rootNode.folders,]
+  const fileOrFolders = rootNode.children
   const rows = splitArrayIntoChunkWithLength(fileOrFolders, NUM_ITEM_PER_ROW)
-
+  
   function splitArrayIntoChunkWithLength(arr, chunkLength) {
     const chunks = []
     const numChunk = Math.floor(
