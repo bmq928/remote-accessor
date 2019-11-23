@@ -5,7 +5,12 @@ const store = {
     name: '',
     children: [],
   },
-  currentFolder: ''
+  currentFolder: {
+    isFile: false,
+    path: '/',
+    name: '',
+    children: [],
+  }
 }
 
 export default store

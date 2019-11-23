@@ -47,6 +47,7 @@
         "error",
         "never"
       ],
+      "no-use-before-define": "off",
       "jsx-a11y/no-static-element-interactions": "off",
       "react/self-closing-comp": "off",
       "react/jsx-closing-tag-location": "off",
