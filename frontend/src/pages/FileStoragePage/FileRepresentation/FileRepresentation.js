@@ -55,7 +55,7 @@ export default function FileRepresentation() {
               onClick={(evt) => selectItem(evt,item)}
               onDoubleClick={(evt) => openItem(evt, item)}
             >
-              <FileItem itemPath={item.path} isFolder={item.rootIsFile} />
+              <FileItem itemPath={item.path} isFolder={!item.isFile} />
             </div>
           ))}
         </div>

@@ -13,10 +13,10 @@ export default function FileExplorer() {
     svc.showFolderTree(rootFolder, 3)
       .then(resp => setRootNode(resp))
       .catch(e => e)
-  })
+  }, [])
 
   function nodeOnClick(path, nodeIsFile, nodeChildItems) {
-    console.log({ path, nodeIsFile, nodeChildItems })
+    
   }
 
   return (
@@ -24,9 +24,14 @@ export default function FileExplorer() {
       <tbody>
         <tr>
           <td width="260px" align="left" valign="top">
-            <ul className="ztree" style={{ width: '260px', overflow: 'auto' }}>
+            <ul className="ztree">
               <FileExplorerNode
-                {...rootNode}
+                // {...rootNode}
+                // eslint-disable-next-line react/no-children-prop
+                children={rootNode.children}
+                path={rootNode.path}
+                name={rootNode.name}
+                isFile={rootNode.isFile}
                 nodeOnClick={nodeOnClick}
                 rootName="/"
               />

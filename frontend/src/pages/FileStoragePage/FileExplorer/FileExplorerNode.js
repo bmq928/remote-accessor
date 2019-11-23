@@ -11,7 +11,6 @@ export default function FileExplorerNode({
   path,
 }) {
   const [showChild, setShowChild] = useState(false)
-
   function toggleShowChild() {
     setShowChild(!showChild)
   }

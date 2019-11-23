@@ -9,7 +9,7 @@ export default function FileItem({ itemPath, isFolder }) {
   const iconSize = 55
   const name = getBaseName(itemPath)
   const ext = getExt(name)
-
+  
   function getExt(name) {
     const chunks = name.split('.')
     return chunks.length > 1 ? chunks[chunks.length - 1] : ''
