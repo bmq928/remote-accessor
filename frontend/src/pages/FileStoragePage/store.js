@@ -11,7 +11,10 @@ const store = {
     name: '',
     children: [],
   },
-  loading: false
+  loading: false,
+  previewing: false,
+  previewContent: '',
+  previewMime: 'text'
 }
-
+window.store = store
 export default store

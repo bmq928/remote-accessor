@@ -5,6 +5,7 @@ import {
   FileExplorer,
   FileRepresentation,
   LoadingContainer,
+  Preview,
   store,
 } from './vendors'
 import './FileStoragePage.scss'
@@ -16,6 +17,7 @@ export default function FileStoragePage() {
       <FileExplorer />
       <FileRepresentation />
       <LoadingContainer />
+      <Preview />
     </div>
   )
 }

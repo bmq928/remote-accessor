@@ -9,7 +9,10 @@ import './FileRepresentation.scss'
 export default function FileRepresentation() {
   // const [rootNode] = useGlobal('rootNode')
   const [currentFolder, setCurrentFolder] = useGlobal('currentFolder')
-  const [,setLoading] = useGlobal('loading')
+  const [, setLoading] = useGlobal('loading')
+  const [, setPreviewing] = useGlobal('previewing')
+  const [, setPreviewContent] = useGlobal('previewContent')
+  const [, setPreviewMime] = useGlobal('previewMime')
   const [itemSelected, setItemSelected] = useState([])
   if (!window._clickTimeout) window._clickTimeout = {}
 
@@ -50,28 +53,35 @@ export default function FileRepresentation() {
 
   function openItem(evt, item) {
     evt.stopPropagation()
-    if(item.isFile) {
+    if (item.isFile) {
       openFile(item)
       return
     }
 
-    if(!item.isFile) {
+    if (!item.isFile) {
       openFolder(item)
     }
   }
 
   function openFile(item) {
+    setPreviewing(true)
+    svc.readFileContent(item.path).then(resp => {
+      if (resp.error) throw new Error(resp.error)
 
+      setPreviewContent(resp.content)
+      setPreviewMime(resp.mime)
+    })
   }
 
   function openFolder(item) {
-    if(item.children.length) {
+    if (item.children.length) {
       setCurrentFolder(item)
       return
     }
 
     setLoading(true)
-    svc.showFolderTree(item.path)
+    svc
+      .showFolderTree(item.path)
       .then(resp => setCurrentFolder(resp))
       .finally(() => setLoading(false))
   }
@@ -80,7 +90,7 @@ export default function FileRepresentation() {
     const itemPath = item.path
     const timeDefineDbClick = 200
 
-    if(!window._clickTimeout[itemPath]) {
+    if (!window._clickTimeout[itemPath]) {
       selectItem(evt, item)
       window._clickTimeout[itemPath] = setTimeout(() => {
         clearTimeout(window._clickTimeout[itemPath])
