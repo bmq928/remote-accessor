@@ -1,17 +1,22 @@
 $color: #999;
+$primary-color: #00d1b2;
 
 .FileRepresentation {
   // margin-left: 260px;
   width: 100%;
   padding: 30px 30px;
   overflow-y: auto;
-
   .item-selected {
     // .FileItem:first-child {
     //   background-color: $color;
     // }
+    // small {
+    //   background-color: $color;
+    // }
+    background: lighten($color:$primary-color, $amount: 50);
+    border: 1px solid $primary-color;
     small {
-      background-color: $color;
+      color: darken($color: $primary-color, $amount: 100)
     }
   }
 }

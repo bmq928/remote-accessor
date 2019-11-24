@@ -1,14 +1,17 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useState } from 'react'
 import { useGlobal } from 'reactn'
 import shortid from 'shortid'
 
-import { FileItem } from '../vendors'
+import { FileItem, svc } from '../vendors'
 import './FileRepresentation.scss'
 
 export default function FileRepresentation() {
   // const [rootNode] = useGlobal('rootNode')
-  const [currentFolder] = useGlobal('currentFolder')
+  const [currentFolder, setCurrentFolder] = useGlobal('currentFolder')
+  const [,setLoading] = useGlobal('loading')
   const [itemSelected, setItemSelected] = useState([])
+  if (!window._clickTimeout) window._clickTimeout = {}
 
   const NUM_ITEM_PER_ROW = 6
   const fileOrFolders = currentFolder.children
@@ -22,6 +25,7 @@ export default function FileRepresentation() {
         : arr.length / chunkLength + 1
     )
 
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < numChunk; ++i) {
       const chunk = arr.filter(
         (val, idx) => Math.floor(idx / chunkLength) === i
@@ -44,7 +48,50 @@ export default function FileRepresentation() {
     setItemSelected([])
   }
 
-  function openItem() {}
+  function openItem(evt, item) {
+    evt.stopPropagation()
+    if(item.isFile) {
+      openFile(item)
+      return
+    }
+
+    if(!item.isFile) {
+      openFolder(item)
+    }
+  }
+
+  function openFile(item) {
+
+  }
+
+  function openFolder(item) {
+    if(item.children.length) {
+      setCurrentFolder(item)
+      return
+    }
+
+    setLoading(true)
+    svc.showFolderTree(item.path)
+      .then(resp => setCurrentFolder(resp))
+      .finally(() => setLoading(false))
+  }
+
+  function handleClick(evt, item) {
+    const itemPath = item.path
+    const timeDefineDbClick = 200
+
+    if(!window._clickTimeout[itemPath]) {
+      selectItem(evt, item)
+      window._clickTimeout[itemPath] = setTimeout(() => {
+        clearTimeout(window._clickTimeout[itemPath])
+        window._clickTimeout[itemPath] = null
+      }, timeDefineDbClick)
+    } else {
+      openItem(evt, item)
+      clearTimeout(window._clickTimeout[itemPath])
+      window._clickTimeout[itemPath] = null
+    }
+  }
 
   return (
     <div
@@ -60,11 +107,12 @@ export default function FileRepresentation() {
               className={
                 itemSelected.includes(item) ? 'column item-selected' : 'column'
               }
-              onClick={evt => selectItem(evt, item)}
-              onDoubleClick={evt => openItem(evt, item)}
-              onKeyUp={() => {}}
+              onClick={evt => handleClick(evt, item)}
+              onKeyDown={() => {}}
             >
-              <FileItem itemPath={item.path} isFolder={!item.isFile} />
+              <div>
+                <FileItem itemPath={item.path} isFolder={!item.isFile} />
+              </div>
             </div>
           ))}
           {// the rest part to make sure each row have enough
