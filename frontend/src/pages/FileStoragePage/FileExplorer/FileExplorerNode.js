@@ -15,9 +15,12 @@ export default function FileExplorerNode({
     setShowChild(!showChild)
   }
 
-  function clickNodeAndToggleShowChild(usingToggle=false) {
-    if(usingToggle || !showChild) toggleShowChild()
-    nodeOnClick(path, isFile, children)
+  function clickNodeAndToggleShowChild(
+    usingToggle = false,
+    changeCurrenFolder = false
+  ) {
+    if (usingToggle || !showChild) toggleShowChild()
+    nodeOnClick(path, isFile, children, changeCurrenFolder)
   }
 
   function getListFileComponent() {
@@ -66,11 +69,11 @@ export default function FileExplorerNode({
 
   return (
     <li>
-      <span className={getItemBadge()} onClick={() => clickNodeAndToggleShowChild(true)}></span>
       <span
-        className="link"
-        onClick={() => clickNodeAndToggleShowChild()}
-      >
+        className={getItemBadge()}
+        onClick={() => clickNodeAndToggleShowChild(true)}
+      ></span>
+      <span className="link" onClick={() => clickNodeAndToggleShowChild(false, true)}>
         <span className={getItemIcon()}></span>
         <span className="node_name">{name}</span>
       </span>

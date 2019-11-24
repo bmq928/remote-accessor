@@ -10,7 +10,8 @@ const store = {
     path: '/',
     name: '',
     children: [],
-  }
+  },
+  loading: false
 }
 
 export default store

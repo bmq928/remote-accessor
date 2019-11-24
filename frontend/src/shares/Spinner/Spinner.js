@@ -7,7 +7,7 @@ export default function Spinner({ overlay }) {
   return (
     <div className="Spinner">
       {overlay && <div className="overlay"></div>}
-      <Loader type="Ball-Triangle" color="#81e6d9" height={80} width={80} />
+      <Loader type="BallTriangle" color="#81e6d9" height={80} width={80} />
     </div>
   )
 }

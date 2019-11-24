@@ -8,31 +8,39 @@ import './FileExplorer.scss'
 export default function FileExplorer() {
   const [rootNode, setRootNode] = useGlobal('rootNode')
   const [, setCurrentFolder] = useGlobal('currentFolder')
+  const [, setLoading] = useGlobal('loading')
 
   useEffect(() => {
     const rootFolder = constants.FILE_EXPLORER_ROOT
+    setLoading(true)
     svc
-      .showFolderTree(rootFolder, 1)
+      .showFolderTree(rootFolder, 3)
       .then(resp => setRootNode(resp))
       .catch(e => e)
+      .finally(() => setLoading(false))
   }, [])
 
-  function nodeOnClick(path, nodeIsFile, nodeChildren) {
-    if(nodeChildren && nodeChildren.length) return
-    if (nodeIsFile) {
+  function exploreFolder(
+    path,
+    nodeIsFile,
+    nodeChildren,
+    changeCurrentFolder = false
+  ) {
+    if (nodeIsFile) return
+
+    setLoading(true)
+    const currentFolderInTree = findNodeBy(rootNode, node => node.path === path)
+    if (nodeChildren && nodeChildren.length) {
+      if (changeCurrentFolder) setCurrentFolder(currentFolderInTree)
+      setLoading(false)
       return
     }
-
     svc.showFolderTree(path, 1).then(resp => {
-      setCurrentFolder(resp)
-
-      const currentFolderInTree = findNodeBy(
-        rootNode,
-        node => node.path === path
-      )
       currentFolderInTree.children = [...resp.children]
-      setRootNode({...rootNode})
+      setRootNode({ ...rootNode })
+      if (changeCurrentFolder) setCurrentFolder(resp)
     })
+    .finally(() => setLoading(false))
   }
 
   function findNodeBy(treeRoot, predicate) {
@@ -62,7 +70,7 @@ export default function FileExplorer() {
                 path={rootNode.path}
                 name={rootNode.name}
                 isFile={rootNode.isFile}
-                nodeOnClick={nodeOnClick}
+                nodeOnClick={exploreFolder}
                 rootName="/"
               />
             </ul>

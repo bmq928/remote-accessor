@@ -6,11 +6,12 @@ import { FileItem } from '../vendors'
 import './FileRepresentation.scss'
 
 export default function FileRepresentation() {
-  const [rootNode] = useGlobal('rootNode')
+  // const [rootNode] = useGlobal('rootNode')
+  const [currentFolder] = useGlobal('currentFolder')
   const [itemSelected, setItemSelected] = useState([])
 
   const NUM_ITEM_PER_ROW = 6
-  const fileOrFolders = rootNode.children
+  const fileOrFolders = currentFolder.children
   const rows = splitArrayIntoChunkWithLength(fileOrFolders, NUM_ITEM_PER_ROW)
 
   function splitArrayIntoChunkWithLength(arr, chunkLength) {
@@ -69,7 +70,7 @@ export default function FileRepresentation() {
           {// the rest part to make sure each row have enough
           new Array(NUM_ITEM_PER_ROW - row.length).fill().map(() => (
             <div key={shortid.generate()} className="column" />
-          ))
+          )) //
           }
         </div>
       ))}
