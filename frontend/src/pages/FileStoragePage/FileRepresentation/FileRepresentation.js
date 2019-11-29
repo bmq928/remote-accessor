@@ -3,16 +3,17 @@ import React, { useState } from 'react'
 import { useGlobal } from 'reactn'
 import shortid from 'shortid'
 
-import { FileItem, svc } from '../vendors'
+import { FileItem, svc, Breadcrumb, utils } from '../vendors'
 import './FileRepresentation.scss'
 
 export default function FileRepresentation() {
-  // const [rootNode] = useGlobal('rootNode')
+  const [rootNode, setRootNode] = useGlobal('rootNode')
   const [currentFolder, setCurrentFolder] = useGlobal('currentFolder')
   const [, setLoading] = useGlobal('loading')
   const [, setPreviewing] = useGlobal('previewing')
   const [, setPreviewContent] = useGlobal('previewContent')
-  const [, setPreviewMime] = useGlobal('previewMime')
+  const [, setPreviewType] = useGlobal('previewType')
+  const [, setpreviewFileExt] = useGlobal('previewFileExt')
   const [itemSelected, setItemSelected] = useState([])
   if (!window._clickTimeout) window._clickTimeout = {}
 
@@ -69,21 +70,45 @@ export default function FileRepresentation() {
       if (resp.error) throw new Error(resp.error)
 
       setPreviewContent(resp.content)
-      setPreviewMime(resp.mime)
+      setPreviewType(resp.is_text ? 'text' : 'base64')
+      setpreviewFileExt(resp.ext)
     })
   }
 
   function openFolder(item) {
     if (item.children.length) {
       setCurrentFolder(item)
+      updateNodeInRootNode(item)
       return
     }
 
     setLoading(true)
     svc
       .showFolderTree(item.path)
-      .then(resp => setCurrentFolder(resp))
+      .then(resp => {
+        setCurrentFolder(resp)
+        updateNodeInRootNode(resp)
+      })
       .finally(() => setLoading(false))
+  }
+
+  function updateNodeInRootNode(nodeData) {
+    if (nodeData.path === rootNode.path) return
+    const parrentNodePath = nodeData.path
+      .split('/')
+      .filter((val, idx, arr) => idx !== arr.length - 1)
+      .join('/')
+    const parrentNode = utils.findNodeBy(
+      rootNode,
+      node => node.path === parrentNodePath
+    )
+    const siblingAndCurFolderNodes = parrentNode.children.map(child => {
+      if (child.path === nodeData.path) return nodeData
+      return child
+    })
+
+    parrentNode.children = [...siblingAndCurFolderNodes]
+    setRootNode(rootNode)
   }
 
   function handleClick(evt, item) {
@@ -109,6 +134,7 @@ export default function FileRepresentation() {
       onClick={() => deSelectAllItem()}
       onKeyDown={() => {}}
     >
+      <Breadcrumb />
       {rows.map(row => (
         <div className="columns" key={row.id}>
           {row.map(item => (

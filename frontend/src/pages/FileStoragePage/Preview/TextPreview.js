@@ -4,6 +4,8 @@ import { LazyLog } from 'react-lazylog'
 import './TextPreview.scss'
 
 export default function Preview({ content }) {
+  // TODO: fix horizontal scroll
+
   return (
     <div className="TextPreview" style={{ height: 300, width: 900 }}>
       <LazyLog

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useGlobal } from 'reactn'
 
-import { svc, constants } from '../vendors'
+import {svc, utils} from '../vendors'
 import FileExplorerNode from './FileExplorerNode'
 import './FileExplorer.scss'
 
@@ -9,16 +9,6 @@ export default function FileExplorer() {
   const [rootNode, setRootNode] = useGlobal('rootNode')
   const [, setCurrentFolder] = useGlobal('currentFolder')
   const [, setLoading] = useGlobal('loading')
-
-  useEffect(() => {
-    const rootFolder = constants.FILE_EXPLORER_ROOT
-    setLoading(true)
-    svc
-      .showFolderTree(rootFolder, 3)
-      .then(resp => setRootNode(resp))
-      .catch(e => e)
-      .finally(() => setLoading(false))
-  }, [])
 
   function exploreFolder(
     path,
@@ -29,7 +19,7 @@ export default function FileExplorer() {
     if (nodeIsFile) return
 
     setLoading(true)
-    const currentFolderInTree = findNodeBy(rootNode, node => node.path === path)
+    const currentFolderInTree = utils.findNodeBy(rootNode, node => node.path === path)
     if (nodeChildren && nodeChildren.length) {
       if (changeCurrentFolder) setCurrentFolder(currentFolderInTree)
       setLoading(false)
@@ -41,20 +31,6 @@ export default function FileExplorer() {
       if (changeCurrentFolder) setCurrentFolder(resp)
     })
     .finally(() => setLoading(false))
-  }
-
-  function findNodeBy(treeRoot, predicate) {
-    if (predicate(treeRoot)) return treeRoot
-
-    const childFolders = treeRoot.children.filter(node => !node.isFile)
-    // find deeper level
-    for (const folder of childFolders) {
-      // eslint-disable-next-line no-undef
-      const foundNode = findNodeBy(folder, predicate)
-      if (foundNode) return foundNode
-    }
-
-    return null
   }
 
   return (

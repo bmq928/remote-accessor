@@ -7,14 +7,15 @@ const store = {
   },
   currentFolder: {
     isFile: false,
-    path: '/',
+    path: '/a',
     name: '',
     children: [],
   },
   loading: false,
   previewing: false,
   previewContent: '',
-  previewMime: 'text'
+  previewType: 'text',
+  previewFileExt: '.txt'
 }
-window.store = store
+
 export default store
