@@ -1,14 +1,15 @@
 import React from 'react'
 import { useGlobal } from 'reactn'
-import ReactModal from 'react-modal'
 
 import TextPreview from './TextPreview'
+import ImgPreview from './ImgPreview'
 import './Preview.scss'
 
-ReactModal.setAppElement('.App')
 export default function Preview() {
   const [previewing, setPreviewing] = useGlobal('previewing')
   const [previewContent] = useGlobal('previewContent')
+  const [previewType] = useGlobal('previewType')
+  const [previewFileExt] = useGlobal('previewFileExt')
 
   function getModalClass() {
     const baseClass = 'Preview modal'
@@ -17,11 +18,22 @@ export default function Preview() {
     return `${baseClass} ${modalStatusClass}`
   }
 
+  function isTextType() {
+    return previewType === 'text'
+  }
+
+  function isImgType() {
+    if (!previewType === 'base64') return false
+    const imgExtList = ['.png', '.jpeg', '.jpg']
+    return imgExtList.includes(previewFileExt)
+  }
+
   return (
     <div className={getModalClass()}>
       <div className="modal-background"></div>
       <div className="modal-content">
-        <TextPreview content={previewContent} />
+        {isTextType() && <TextPreview content={previewContent} />}
+        {isImgType() && <ImgPreview base64src={previewContent} />}
       </div>
       <button
         type="button"
