@@ -3,41 +3,32 @@ import { useGlobal } from 'reactn'
 import ReactModal from 'react-modal'
 
 import TextPreview from './TextPreview'
+import './Preview.scss'
 
 ReactModal.setAppElement('.App')
 export default function Preview() {
   const [previewing, setPreviewing] = useGlobal('previewing')
   const [previewContent] = useGlobal('previewContent')
-  const modalStyle = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      borderColor: '#81e6d9',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      width: '40%',
-      minHeight: '300px',
-      minWidth: '925px',
-      paddingTop: '52px'
-    },
+
+  function getModalClass() {
+    const baseClass = 'Preview modal'
+    const modalStatusClass = previewing ? 'is-active' : ''
+
+    return `${baseClass} ${modalStatusClass}`
   }
 
   return (
-    <ReactModal isOpen={previewing} style={modalStyle}>
-      <>
-        <button
-          style={{'background': 'rgba(10, 10, 10, 0.2)'}}
-          type="button"
-          className="modal-close"
-          aria-label="close"
-          onClick={() => setPreviewing(false)}
-        ></button>
+    <div className={getModalClass()}>
+      <div className="modal-background"></div>
+      <div className="modal-content">
         <TextPreview content={previewContent} />
-
-      </>
-    </ReactModal>
+      </div>
+      <button
+        type="button"
+        className="modal-close is-large"
+        aria-label="close"
+        onClick={() => setPreviewing(false)}
+      ></button>
+    </div>
   )
 }

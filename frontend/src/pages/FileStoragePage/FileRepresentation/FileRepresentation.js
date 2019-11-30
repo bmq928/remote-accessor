@@ -68,7 +68,6 @@ export default function FileRepresentation() {
     setPreviewing(true)
     svc.readFileContent(item.path).then(resp => {
       if (resp.error) throw new Error(resp.error)
-
       setPreviewContent(resp.content)
       setPreviewType(resp.is_text ? 'text' : 'base64')
       setpreviewFileExt(resp.ext)

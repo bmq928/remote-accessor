@@ -15,8 +15,15 @@ export default function Breadcrumb() {
   function goToFolder(idxFolder) {
     const folderParentNames = breadcrumbItems.filter((item, i) => i < idxFolder)
     const folderToGoName = breadcrumbItems[idxFolder]
-    const folderToGoPath = [rootNode.path, ...folderParentNames, folderToGoName].join('/')
-    const folderToGoNode = utils.findNodeBy(rootNode,f => f.path === folderToGoPath)
+    const folderToGoPath = [
+      rootNode.path,
+      ...folderParentNames,
+      folderToGoName,
+    ].join('/')
+    const folderToGoNode = utils.findNodeBy(
+      rootNode,
+      f => f.path === folderToGoPath
+    )
     setCurrentFolder(folderToGoNode)
   }
 

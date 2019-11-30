@@ -1,22 +1,12 @@
 import React from 'react'
-import { LazyLog } from 'react-lazylog'
+import PropTypes from 'prop-types'
 
 import './TextPreview.scss'
 
-export default function Preview({ content }) {
-  // TODO: fix horizontal scroll
+export default function TextPreview({ content }) {
+  return <div className="TextPreview">{content}</div>
+}
 
-  return (
-    <div className="TextPreview" style={{ height: 300, width: 900 }}>
-      <LazyLog
-        extraLines={0}
-        text={`${content}
-        `}
-        containerStyle={{
-          backgroundColor: 'white',
-          color: 'black',
-        }}
-      />
-    </div>
-  )
+TextPreview.propTypes = {
+  content: PropTypes.string.isRequired
 }

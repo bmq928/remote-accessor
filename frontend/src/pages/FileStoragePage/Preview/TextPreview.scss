@@ -1,11 +1,4 @@
 .TextPreview {
-  .ReactVirtualized__Grid.ReactVirtualized__List.react-lazylog{
-    background-color: white;
-  }
-  .ReactVirtualized__Grid__innerScrollContainer  {
-    
-    div:hover {
-      background-color: #ddfdf0;
-    }
-  }
+  white-space: pre-wrap;
+  padding: 25px;
 }
