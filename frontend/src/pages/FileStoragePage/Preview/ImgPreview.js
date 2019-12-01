@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export default function ImgPreview({base64src}) {
   return (
     <p className="image is-4by3">
-      <img src={`data:image/png;base64, ${base64src}`} alt="" />
+      <img src={base64src} alt="" />
     </p>
   )
 }
