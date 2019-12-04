@@ -9,6 +9,8 @@ import './App.scss'
 const Page404 = React.lazy(() => import('./pages/Page404'))
 const FileStoragePage = React.lazy(() => import('./pages/FileStoragePage'))
 const ProcessMonitorPage = React.lazy(() => import('./pages/ProcessMonitorPage'))
+const SnapshotPage = React.lazy(() => import('./pages/SnapshotPage'))
+const StreamingPage = React.lazy(() => import('./pages/StreamingPage'))
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Switch>
           <Route exact path="/files" component={LazyWrapper(FileStoragePage)} />
           <Route exact path="/programs" component={LazyWrapper(ProcessMonitorPage)} />
+          <Route exact path="/snapshot" component={LazyWrapper(SnapshotPage)} />
+          <Route exact path="/screen" component={LazyWrapper(StreamingPage)} />
           <Route component={LazyWrapper(Page404)} />
         </Switch>
       </Router>
