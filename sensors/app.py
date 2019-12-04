@@ -34,7 +34,6 @@ def create_app():
         return process_monitor.poll()
     
     @app.route('/screenshot')
-    @camel.to_camel
     def get_screenshot():
         resp = app.response_class(screen_shot.snapshot_tranferable_img(), mimetype='image/jpeg')
         return resp
