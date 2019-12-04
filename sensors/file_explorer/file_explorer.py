@@ -8,7 +8,7 @@ def explore(directory: str, depth=3) -> FileInfo:
     if not path.exists(directory):
         raise FileNotFoundError('directory is not existed')
 
-    return _explore_at_lv(directory, 0, depth - 1)
+    return _explore_at_lv(directory, 0, int(depth) - 1)
 
 
 def _explore_at_lv(directory: str, lv: int, max_lv: int) -> FileInfo:
