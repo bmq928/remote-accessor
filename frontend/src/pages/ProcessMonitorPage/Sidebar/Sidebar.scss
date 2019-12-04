@@ -1,0 +1,16 @@
+$primary-color: #00d1b2;
+
+.Sidebar {
+  margin-top: 10px;
+  overflow: auto;
+  height: 100%;
+  max-height: 800px;
+  display: block;
+  width: 261px;
+  max-width: 261px;
+  border-right: solid $primary-color 1px;
+
+  .menu {
+    margin-top: 20px;
+  }
+}

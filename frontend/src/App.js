@@ -8,6 +8,7 @@ import './App.scss'
 
 const Page404 = React.lazy(() => import('./pages/Page404'))
 const FileStoragePage = React.lazy(() => import('./pages/FileStoragePage'))
+const ProcessMonitorPage = React.lazy(() => import('./pages/ProcessMonitorPage'))
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/files" component={LazyWrapper(FileStoragePage)} />
+          <Route exact path="/programs" component={LazyWrapper(ProcessMonitorPage)} />
           <Route component={LazyWrapper(Page404)} />
         </Switch>
       </Router>
