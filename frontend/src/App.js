@@ -10,7 +10,7 @@ const Page404 = React.lazy(() => import('./pages/Page404'))
 const FileStoragePage = React.lazy(() => import('./pages/FileStoragePage'))
 const ProcessMonitorPage = React.lazy(() => import('./pages/ProcessMonitorPage'))
 const SnapshotPage = React.lazy(() => import('./pages/SnapshotPage'))
-const StreamingPage = React.lazy(() => import('./pages/StreamingPage'))
+const WebcamPage = React.lazy(() => import('./pages/WebcamPage'))
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
           <Route exact path="/files" component={LazyWrapper(FileStoragePage)} />
           <Route exact path="/programs" component={LazyWrapper(ProcessMonitorPage)} />
           <Route exact path="/snapshot" component={LazyWrapper(SnapshotPage)} />
-          <Route exact path="/screen" component={LazyWrapper(StreamingPage)} />
+          <Route exact path="/screen" component={LazyWrapper(WebcamPage)} />
           <Route component={LazyWrapper(Page404)} />
         </Switch>
       </Router>
