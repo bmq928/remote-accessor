@@ -12,7 +12,6 @@ def create_app():
     import file_explorer
     import process_monitor
     import screen_shot
-    import img_rgbreader
     import webcam
     import screen_recorder
 
