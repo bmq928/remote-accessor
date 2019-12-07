@@ -25,7 +25,7 @@ export default function FileExplorer() {
       setLoading(false)
       return
     }
-    svc.showFolderTree(path, 1).then(resp => {
+    svc.showFolderTree(path, 2).then(resp => {
       currentFolderInTree.children = [...resp.children]
       setRootNode({ ...rootNode })
       if (changeCurrentFolder) setCurrentFolder(resp)

@@ -11,6 +11,7 @@ __logger__ = logging.getLogger(__name__)
 def create_app():
     import file_explorer
     import process_monitor
+    import file_reader
     import screen_shot
     import webcam
     import screen_recorder

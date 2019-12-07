@@ -83,7 +83,7 @@ export default function FileRepresentation() {
 
     setLoading(true)
     svc
-      .showFolderTree(item.path)
+      .showFolderTree(item.path, 2)
       .then(resp => {
         setCurrentFolder(resp)
         updateNodeInRootNode(resp)

@@ -20,8 +20,9 @@ export default function Navbar() {
         <div className="navbar-start">
           <Link className="navbar-item" to="/files">Files</Link>
           <Link className="navbar-item" to="/programs">Program</Link>
-          <Link className="navbar-item" to="/snapshot">Snapshot Screen</Link>
-          <Link className="navbar-item" to="/screen">Streaming Screen</Link>
+          <Link className="navbar-item" to="/snapshot">Snapshot</Link>
+          <Link className="navbar-item" to="/webcam">Webcam</Link>
+          <Link className="navbar-item" to="/screen">Screen</Link>
         </div>
       </div>
     </nav>
