@@ -19,6 +19,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
+          <Route exact path="/" component={LazyWrapper(FileStoragePage)} />
           <Route exact path="/files" component={LazyWrapper(FileStoragePage)} />
           <Route exact path="/programs" component={LazyWrapper(ProcessMonitorPage)} />
           <Route exact path="/snapshot" component={LazyWrapper(SnapshotPage)} />

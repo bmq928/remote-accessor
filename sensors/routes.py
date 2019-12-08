@@ -1,6 +1,7 @@
 import logging
-from flask import Flask, request, send_file
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
+import os
 
 from shares import camel
 
@@ -16,33 +17,33 @@ def create_app():
     import webcam
     import screen_recorder
 
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder=os.path.join(os.getcwd(), 'statics'))
     CORS(app)
 
-    @app.route("/file/structure")
+    @app.route("/api/file/structure")
     @camel.to_camel
     def get_file_structure():
         return file_explorer.explore(**request.args).to_dict()
 
-    @app.route("/file/content")
+    @app.route("/api/file/content")
     @camel.to_camel
     def get_file_content():
         file_path = request.args.get("filePath")
         return file_reader.read_file(file_path)
 
-    @app.route("/process")
+    @app.route("/api/process")
     @camel.to_camel
     def get_process_metric():
         return process_monitor.poll()
 
-    @app.route("/screenshot")
+    @app.route("/api/screenshot")
     def get_screenshot():
         resp = app.response_class(
             screen_shot.snapshot_tranferable_img(), mimetype="image/jpeg"
         )
         return resp
 
-    @app.route("/webcam")
+    @app.route("/api/webcam")
     def stream_webcam():
         Camera = webcam.WebCamVideoCamera
 
@@ -51,7 +52,7 @@ def create_app():
             mimetype="multipart/x-mixed-replace; boundary=frame",
         )
 
-    @app.route("/screen-recorder")
+    @app.route("/api/screen-recorder")
     def get_screen_recorder():
         Camera = screen_recorder.ScreenRecordCamera
 
@@ -59,5 +60,14 @@ def create_app():
             screen_recorder.record(Camera()),
             mimetype="multipart/x-mixed-replace; boundary=frame",
         )
+
+    @app.route('/', defaults={'path': ''})
+    @app.route('/<path:path>')
+    def serve(path):
+        if path != "" and os.path.exists(app.static_folder + '/' + path):
+            return send_from_directory(app.static_folder, path)
+        else:
+            return send_from_directory(app.static_folder, 'index.html')
+
 
     return app
